@@ -38,7 +38,48 @@ namespace AoC24_01
             }
             // Sum up the deltaList
             int sum = deltaList.Sum();
+            Console.WriteLine("Part 1: ");
             Console.WriteLine($"The sum of all distances: {sum}");
+
+
+
+            // Part 2 Similarity score
+            // number1 = How often each number from the left list appears in the right list. 
+            // multiply number of instances in other list with number...
+
+            List<int> similarityFactor = new List<int>();
+
+            for (int i = 0; i < firstList.Count; i++)
+            {
+                int number = firstList[i];
+                int result = 0;
+                // if second list contains number, count how many times and set that to result
+                if (secondList.Contains(number))
+                {
+                    result = secondList.Where(x => x.Equals(number)).Sum();
+                }
+                similarityFactor.Add(result);
+            }
+
+            List<int> similarityResult = new List<int>();
+
+            // multiply similarityFactor with firstList
+            for (int i =0; i < firstList.Count;i++) 
+            {
+                int similarity = 0;
+                // don't even bother multiplying if its 0 tho
+                if (similarityFactor[i] != 0)
+                {
+                    similarity = similarityFactor[i] * firstList[i];
+                }
+                similarityResult.Add(similarity);
+            }
+
+            // sum the similarityFactor and present it :)
+
+            Console.WriteLine("Part 2");
+            Console.WriteLine($"The similarity score is: {similarityFactor.Sum()}");
+
         }
     }
 }
